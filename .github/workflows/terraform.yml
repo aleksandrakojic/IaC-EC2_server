@@ -1,4 +1,4 @@
-name: EC2 IAC
+name: Cloudcore IAC
 
 on:
     push:
@@ -22,7 +22,7 @@ env:
 jobs:
     terraform:
         name: "Apply terraform code changes"
-        runs-on: self-hosted
+        runs-on: ubuntu-latest
         defaults:
             run:
                 shell: bash
