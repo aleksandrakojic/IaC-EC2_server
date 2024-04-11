@@ -1,3 +1,5 @@
+[![EC2 IAC](https://github.com/aleksandrakojic/IaC-EC2_server/actions/workflows/terraform.yml/badge.svg?branch=main&event=deployment)](https://github.com/aleksandrakojic/IaC-EC2_server/actions/workflows/terraform.yml)
+
 ![Terraform Version](https://img.shields.io/badge/Terraform-1.7.3-blue.svg)
 # Terraform Configuration for AWS EKS Cluster
 
