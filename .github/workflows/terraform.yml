@@ -1,4 +1,4 @@
-name: Cloudcore IAC
+name: EC2 IAC
 
 on:
     push:
