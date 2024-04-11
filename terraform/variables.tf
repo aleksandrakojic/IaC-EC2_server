@@ -60,7 +60,7 @@ variable "key_name" {
 }
 
 variable "instance_name" {
-  description = "EC2 Instance name for the EC2 server"
+  description = "EC2 Instance name"
   type        = string
   default     = "EC2-server"
 }
