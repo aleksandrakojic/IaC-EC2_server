@@ -23,7 +23,7 @@ resource "aws_instance" "ec2" {
   instance_type          = var.instance_type
   key_name               = var.key_name
   security_groups        = [aws_security_group.ec2_sg.name]
-  subnet_id              = tolist(module.vpc.public_subnets)[0]
+  subnet_id              = aws_subnet.public-subnet.id
   iam_instance_profile = aws_iam_instance_profile.instance-profile.name
   root_block_device {
     volume_size = 30
