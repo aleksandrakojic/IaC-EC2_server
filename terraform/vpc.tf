@@ -42,7 +42,7 @@ resource "aws_route_table_association" "rt-association" {
   subnet_id      = aws_subnet.public-subnet.id
 }
 
-resource "aws_security_group" "ec2-sg" {
+resource "aws_security_group" "ec2_sg" {
   vpc_id      = aws_vpc.vpc.id
   description = "Allowing HTTP, SSH Access"
 
