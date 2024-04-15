@@ -14,7 +14,7 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-resource "aws_subnet" "public-subnet" {
+resource "aws_subnet" "public_subnet" {
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = "10.0.1.0/24"
   availability_zone       = "eu-west-3a"
@@ -39,7 +39,7 @@ resource "aws_route_table" "rt" {
 
 resource "aws_route_table_association" "rt-association" {
   route_table_id = aws_route_table.rt.id
-  subnet_id      = aws_subnet.public-subnet.id
+  subnet_id      = aws_subnet.public_subnet.id
 }
 
 resource "aws_security_group" "ec2_sg" {
