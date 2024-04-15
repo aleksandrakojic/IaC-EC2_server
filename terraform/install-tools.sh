@@ -47,6 +47,9 @@ echo "Docker installation completed successfully!"
 # Wait for Docker to initialize
 sleep 10
 
+# Run Docker Container of Sonarqube
+docker run -d  --name sonar -p 9000:9000 sonarqube:lts-community
+
 # Install AWS CLI
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 sudo apt install unzip -y
@@ -58,7 +61,7 @@ rm -rf awscliv2.zip
 # Install Kubectl
 sudo apt update
 sudo apt install curl -y
-sudo curl -LO "https://dl.k8s.io/release/v1.28.4/bin/linux/amd64/kubectl"
+sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 sudo chmod +x kubectl
 sudo mv kubectl /usr/local/bin/
 kubectl version --client
@@ -87,32 +90,24 @@ sudo apt install trivy -y
 trivy --version
 echo "Trivy installation completed successfully!"
 
-# Install Argo CD with Kubectl
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.7/manifests/install.yaml
-sudo apt install jq -y
-
 # Installing Helm
 sudo snap install helm --classic
 helm version
 
 # Adding Helm repositories
-
+helm repo add argo https://argoproj.github.io/argo-helm
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo add grafana https://grafana.github.io/helm-charts
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
-helm repo list
-echo "Helm repositories added successfully!"
 
-# Install Prometheus
-helm install prometheus prometheus-community/kube-prometheus-stack --namespace monitoring --create-namespace
+# Installing Argo CD
+helm install argocd argo/argo-cd --namespace argocd --create-namespace
 
-# Install Grafana
+# Installing Prometheus
+helm install prometheus prometheus-community/prometheus --namespace monitoring --create-namespace
+
+# Installing Grafana
 helm install grafana grafana/grafana --namespace monitoring --create-namespace
-
-# Install ingress-nginx
-helm install ingress-nginx ingress-nginx/ingress-nginx
 
 echo "Initialization script completed successfully."
 

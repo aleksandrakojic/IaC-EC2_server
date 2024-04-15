@@ -4,6 +4,12 @@ variable "region" {
   default = "eu-west-3"
 }
 
+variable "clusterName" {
+  description = "Name of the EKS cluster"
+  type = string
+  default = "quiz-eks"
+}
+
 variable "vpc-name" {
   description = "VPC Name for our EC2 server"
   type = string
