@@ -1,27 +1,32 @@
 resource "aws_vpc" "vpc" {
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = var.vpc-name
+    Name = var.vpc_name
   }
 }
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
+  depends_on = [aws_vpc.vpc]
 
   tags = {
-    Name = var.igw-name
+    Name = var.igw_name
   }
 }
 
 resource "aws_subnet" "public_subnet" {
+  depends_on = [aws_internet_gateway.igw]
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = "10.0.1.0/24"
   availability_zone       = "eu-west-3a"
   map_public_ip_on_launch = true
 
   tags = {
-    Name = var.subnet-name
+    Name = var.subnet_name
   }
 }
 
@@ -33,7 +38,7 @@ resource "aws_route_table" "rt" {
   }
 
   tags = {
-    Name = var.rt-name
+    Name = var.rt_name
   }
 }
 
@@ -68,6 +73,6 @@ resource "aws_security_group" "ec2_sg" {
   }
 
   tags = {
-    Name = var.sg-name
+    Name = var.sg_name
   }
 }

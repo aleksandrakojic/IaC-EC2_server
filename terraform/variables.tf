@@ -4,47 +4,47 @@ variable "region" {
   default = "eu-west-3"
 }
 
-variable "clusterName" {
+variable "cluster_name" {
   description = "Name of the EKS cluster"
   type = string
   default = "quiz-eks"
 }
 
-variable "vpc-name" {
+variable "vpc_name" {
   description = "VPC Name for our EC2 server"
   type = string
   default = "EC2-vpc"
 }
 
-variable "igw-name" {
+variable "igw_name" {
   description = "Internet Gate Way Name for our EC2 server"
   type = string
   default = "EC2-igw"
 }
 
-variable "subnet-name" {
+variable "subnet_name" {
   description = "Subnet Name for our EC2 server"
   type = string
   default = "EC2-subnet"
 }
 
-variable "rt-name" {
+variable "rt_name" {
   description = "Route Table Name for our EC2 server"
   type = string
   default = "EC2-rt"
 }
 
-variable "sg-name" {
+variable "sg_name" {
   description = "Security Group for our EC2 server"
   type = string
   default = "EC2-sg"
 }
 
 
-variable "iam-role" {
+variable "iam_role" {
   description = "IAM Role for the EC2 Server"
   type = string
-  default = "EC2-iam-role"
+  default = "EC2-iam_role"
 }
 
 variable "ami_id" {
@@ -70,4 +70,15 @@ variable "instance_name" {
   type        = string
   default     = "EC2-server"
 }
-#
+
+variable "security_group_id" {
+  description = "Security Group ID for EC2-server"
+  type        = string
+  default     = "ec2-sg"
+}
+
+variable "subnet_id" {
+  description = "Subnet ID for EC2-server"
+  type        = string
+  default     = "ec2_public_subnet"
+}
