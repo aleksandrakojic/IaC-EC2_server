@@ -76,9 +76,3 @@ variable "security_group_id" {
   type        = string
   default     = "ec2-sg"
 }
-
-variable "subnet_id" {
-  description = "Subnet ID for EC2-server"
-  type        = string
-  default     = "ec2_public_subnet"
-}
