@@ -88,6 +88,7 @@ jobs:
           if: steps.apply_destroy.outcome == 'success'
           run: |
             if [ "${{ github.event.inputs.action }}" == "apply" ]; then 
+                echo "Update kubeconfig"
                 aws eks update-kubeconfig --region ${{ env.AWS_REGION}} --name ${{ env.EKS_CLUSTER}}
             elif [ "${{ github.event.inputs.action }}" == "destroy" ]; then
                 echo "Skipping aws eks update-kubeconfig after destroying the infrastructure."
@@ -96,23 +97,23 @@ jobs:
                 exit 1
             fi
         
-        - name: Print Kubeconfig
-          id: printkubeconfig
-          if: steps.apply_destroy.outcome == 'success'
-          run: cat $(pwd)/kubeconfig
+        # - name: Print Kubeconfig
+        #   id: printkubeconfig
+        #   if: steps.apply_destroy.outcome == 'success'
+        #   run: cat $(pwd)/kubeconfig
     
-        - name: Install or Remove Ingress Controller
-          if: steps.apply_destroy.outcome == 'success' && steps.getconfig.outcome == 'success'
-          run: |
-            export KUBECONFIG=$(pwd)/kubeconfig
-            if [ "${{ github.event.inputs.action }}" == "apply" ]; then
-                kubectl apply --validate=false -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.3/deploy/static/provider/aws/deploy.yaml
-            elif [ "${{ github.event.inputs.action }}" == "destroy" ]; then
-                echo "Skipping Ingress Controller installation after destroying the infrastructure."
-            else
-                echo "Invalid action specified."
-                exit 1
-            fi
+        # - name: Install or Remove Ingress Controller
+        #   if: steps.apply_destroy.outcome == 'success' && steps.getconfig.outcome == 'success'
+        #   run: |
+        #     export KUBECONFIG=$(pwd)/kubeconfig
+        #     if [ "${{ github.event.inputs.action }}" == "apply" ]; then
+        #         kubectl apply --validate=false -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.3/deploy/static/provider/aws/deploy.yaml
+        #     elif [ "${{ github.event.inputs.action }}" == "destroy" ]; then
+        #         echo "Skipping Ingress Controller installation after destroying the infrastructure."
+        #     else
+        #         echo "Invalid action specified."
+        #         exit 1
+        #     fi
 
 
 
